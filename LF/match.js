@@ -424,6 +424,10 @@ define(['core/util', 'core/controller', 'LF/sprite-select',
         const controller = setup_controller(player)
         // create character
         const char = new factory.character(char_config, pdata, player.id)
+        // Set player name for name tag display
+        if (player.name) {
+          char.player_name = player.name
+        }
         if (controller.type === 'AIcontroller') {
           const AIcontroller = util.select_from($.data.AI, { id: player.controller.id }).data
           $.AIscript.push(new AIcontroller(char, $, controller))

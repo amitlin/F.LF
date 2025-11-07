@@ -1411,6 +1411,9 @@ define(['LF/livingobject', 'LF/global', 'core/combodec', 'core/util', 'LF/util']
       const $ = this
       // chain constructor
       livingobject.call(this, config, data, thisID)
+      
+      // Create name tag
+      $.create_name_tag()
       if (typeof id_updates[$.id] === 'function') {
         $.id_update = id_updates[$.id]
       } else {
@@ -1516,8 +1519,56 @@ define(['LF/livingobject', 'LF/global', 'core/combodec', 'core/util', 'LF/util']
 
     character.prototype.destroy = function () {
       const $ = this
+      // Remove name tag
+      if ($.name_tag) {
+        $.name_tag.remove()
+        $.name_tag = null
+      }
       livingobject.prototype.destroy.call(this)
       // (handled by manager.js) remove combo listener to controller
+    }
+
+    character.prototype.create_name_tag = function () {
+      const $ = this
+      // Create name tag element
+      $.name_tag = document.createElement('div')
+      $.name_tag.className = 'character-name-tag'
+      // Use player_name if available, otherwise use character data name
+      $.name_tag.textContent = $.player_name || $.name || 'Unknown'
+      
+      // Add to the window container (which supports DOM children, unlike canvas)
+      const windowElement = document.querySelector('.window')
+      if (windowElement) {
+        windowElement.appendChild($.name_tag)
+      }
+    }
+
+    character.prototype.update_name_tag_position = function () {
+      const $ = this
+      if (!$.name_tag) return
+      
+      // Get character's world position (ps.sx, ps.sy are world coordinates)
+      const world_x = $.ps.sx
+      const world_y = $.ps.sy + $.ps.sz
+      
+      // Get camera offset to convert to viewport coordinates
+      const camera_x = $.bg.camerax || 0
+      
+      // Position name tag below character's feet
+      const sprite_width = $.sp.w || 0
+      const sprite_height = $.sp.h || 0
+      const tag_offset_y = 10 // pixels below feet
+      
+      // Convert to viewport coordinates and center horizontally
+      const tag_x = world_x - camera_x + (sprite_width / 2)
+      const tag_y = world_y + sprite_height + tag_offset_y
+      
+      // Apply position
+      $.name_tag.style.left = tag_x + 'px'
+      $.name_tag.style.top = tag_y + 'px'
+      
+      // Update z-index based on z position (for proper layering)
+      $.name_tag.style.zIndex = Math.floor($.ps.z) + 1000
     }
 
     // to emit a combo event
