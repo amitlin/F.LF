@@ -242,7 +242,10 @@ define(['LF/global', 'LF/network', 'LF/soundpack', 'LF/match', 'LF/util', 'LF/to
         diff_list = ['Easy', 'Normal', 'Difficult']
 
         this.create_UI()
-        if (param.demo) {
+        if (param.bandit_battle) {
+          // Launch bandit battle directly from URL parameter
+          setTimeout(() => manager.start_bandit_battle(), 500)
+        } else if (param.demo) {
           this.start_demo(true)
         } else if (param.demo_display) {
           this.start_demo(false)
@@ -364,6 +367,14 @@ define(['LF/global', 'LF/network', 'LF/soundpack', 'LF/match', 'LF/util', 'LF/to
                 }
               }
             })
+            // Add CPU Bandit Battle button
+            const banditBtn = document.createElement('button')
+            banditBtn.textContent = 'CPU Bandit Battle'
+            banditBtn.className = 'bandit_battle_button'
+            banditBtn.onclick = function () {
+              manager.start_bandit_battle()
+            }
+            util.div('frontpage_content').appendChild(banditBtn)
           },
           onactive: function () {
             this.demax(!window_state.maximized)
@@ -1440,6 +1451,40 @@ define(['LF/global', 'LF/network', 'LF/soundpack', 'LF/match', 'LF/util', 'LF/to
         manager.sound.play('1/m_ok')
         manager.match_end()
         manager.switch_UI('character_selection')
+      }
+      this.start_bandit_battle = function () {
+        // CPU Bandit Battle - 8 players, all bandits, free-for-all
+        manager.sound.play('1/m_ok')
+        manager.match_end()
+
+        // Find bandit character - Bat is usually the bandit (id 6)
+        // We need to find its index in char_list
+        let banditIndex = 6 // Bat/Bandit is typically at index 6
+
+        // Create 8 bandit players with unique names
+        const banditNames = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta']
+        const players = []
+        for (let i = 0; i < 8; i++) {
+          players.push({
+            use: true,
+            name: 'Bandit ' + banditNames[i],
+            type: 'computer',
+            selected: banditIndex,
+            selected_AI: Math.floor(Math.random() * AI_list.length),
+            team: 0
+          })
+        }
+
+        // Create match config
+        const config = {
+          players: players,
+          options: {
+            background: -1, // random background
+            difficulty: 2 // difficult
+          }
+        }
+
+        manager.start_match(config)
       }
       this.start_match = function (config) {
         this.switch_UI('gameplay')

@@ -28,6 +28,11 @@ F.LF is an open source implementation of [LF2](http://lf2.net) engineered from t
 - Supported characters: Bandit, Deep, John, Henry, Rudolf, Louis, Firen, Freeze, Dennis, Woody, Davis
 - Supports all 1.9 backgrounds (except Lee On Road) in 16:9 screen
 - VS mode
+- **NEW: CPU Bandit Battle Mode** - Watch 8 CPU-controlled bandits battle in a free-for-all!
+  - Accessible from the main menu or via `game/bandit_battle.html`
+  - All AI controlled, no human players
+  - True free-for-all with each bandit on an independent team
+  - See [BANDIT_BATTLE.md](BANDIT_BATTLE.md) for details
 - PvP networking via WebSocket
   - You can host your own WebSocket server
   - Can even connect between PC and mobile!

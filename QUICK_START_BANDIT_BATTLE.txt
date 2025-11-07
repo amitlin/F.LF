@@ -1,0 +1,59 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                   CPU BANDIT BATTLE - QUICK START GUIDE                  ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+🎮 WHAT IS IT?
+   Watch 8 AI-controlled bandits fight in a free-for-all battle!
+   No human players - just sit back and enjoy the chaos!
+
+🚀 HOW TO START (Choose One):
+
+   METHOD 1: From Main Menu
+   ├─ Open: game/game.html
+   ├─ Look for: "CPU Bandit Battle (Free-for-All)" button
+   └─ Click it!
+
+   METHOD 2: Direct Launch
+   ├─ Open: game/bandit_battle.html
+   └─ Battle starts automatically!
+
+   METHOD 3: URL Parameter
+   ├─ Navigate to: game/game.html?bandit_battle=true
+   └─ Or add ?bandit_battle=true to any game URL
+
+🎯 WHAT TO EXPECT:
+   • 8 bandits with unique names (Alpha, Beta, Gamma, etc.)
+   • Each bandit has random AI personality
+   • Free-for-all combat (everyone fights everyone)
+   • Random background/stage
+   • Battle continues until one survivor remains
+
+🎮 CONTROLS:
+   • ESC key → Exit battle and return to menu
+   • Click "here" button → Exit battle (appears at top of screen)
+   • F1 → Pause/Unpause
+   • F4 → Exit to menu
+   • F7 → Restore all health (if you want longer battles)
+
+📊 FEATURES:
+   ✓ All CPU controlled
+   ✓ True free-for-all (no teams)
+   ✓ Random AI behaviors
+   ✓ Random stage selection
+   ✓ Easy exit controls
+
+🛠️ TECHNICAL INFO:
+   • Character: Bandit (auto-detected from game data)
+   • Players: 8
+   • Teams: All independent (team 0)
+   • AI: Randomized from available AI scripts
+   • Background: Random selection
+
+📖 MORE INFO:
+   See BANDIT_BATTLE.md for detailed documentation
+   See IMPLEMENTATION_SUMMARY.md for technical details
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  Have fun watching the chaos! Press ESC anytime to return to the menu.  ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
