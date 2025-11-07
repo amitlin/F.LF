@@ -1457,17 +1457,32 @@ define(['LF/global', 'LF/network', 'LF/soundpack', 'LF/match', 'LF/util', 'LF/to
         manager.sound.play('1/m_ok')
         manager.match_end()
 
-        // Find bandit character - Bat is usually the bandit (id 6)
-        // We need to find its index in char_list
-        let banditIndex = 6 // Bat/Bandit is typically at index 6
+        // Find bandit character by searching for "Bandit" or "Hunter" in the name
+        let banditIndex = 6 // Default fallback
+        for (let i = 0; i < char_list.length; i++) {
+          const name = char_list[i].name.toLowerCase()
+          if (name.includes('bandit') || name.includes('hunter') || name.includes('bat')) {
+            banditIndex = i
+            break
+          }
+        }
 
-        // Create 8 bandit players with unique names
-        const banditNames = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta']
+        // Diverse list of bandit names to randomly choose from
+        const banditNames = [
+          'איתמר בן גביר', 'בצלאל סמוטריץ׳', 'ביבי נתניהו', 'דוד בן גוריון',
+          'גולדה מאיר', 'מירי רגב', 'אהוד אולמרט', 'שרה נתניהו', 'גדי איזנקוט',
+          'ניר ברקת'
+        ]
+
+        // Shuffle and pick 8 unique names
+        const shuffled = banditNames.sort(() => Math.random() - 0.5)
+        const selectedNames = shuffled.slice(0, 8)
+
         const players = []
         for (let i = 0; i < 8; i++) {
           players.push({
             use: true,
-            name: 'Bandit ' + banditNames[i],
+            name: selectedNames[i],
             type: 'computer',
             selected: banditIndex,
             selected_AI: Math.floor(Math.random() * AI_list.length),

@@ -427,6 +427,10 @@ define(['core/util', 'core/controller', 'LF/sprite-select',
         // Set player name for name tag display
         if (player.name) {
           char.player_name = player.name
+          // Update the name tag text to reflect the player name
+          if (char.update_name_tag_text) {
+            char.update_name_tag_text()
+          }
         }
         if (controller.type === 'AIcontroller') {
           const AIcontroller = util.select_from($.data.AI, { id: player.controller.id }).data

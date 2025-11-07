@@ -1543,6 +1543,13 @@ define(['LF/livingobject', 'LF/global', 'core/combodec', 'core/util', 'LF/util']
       }
     }
 
+    character.prototype.update_name_tag_text = function () {
+      const $ = this
+      if ($.name_tag) {
+        $.name_tag.textContent = $.player_name || $.name || 'Unknown'
+      }
+    }
+
     character.prototype.update_name_tag_position = function () {
       const $ = this
       if (!$.name_tag) return
